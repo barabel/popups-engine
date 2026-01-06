@@ -1,1 +1,3 @@
-export { PopupMessage } from './ui';
+import { PopupMessage } from './ui';
+
+export default PopupMessage;

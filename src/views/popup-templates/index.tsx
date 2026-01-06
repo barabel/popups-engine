@@ -1,5 +1,7 @@
-import { PopupMessage } from './message';
+import { lazy } from 'react';
 
 export const popups = {
-  message: PopupMessage,
+  message: lazy(
+    () => import('@views/popup-templates/message'),
+  ),
 };

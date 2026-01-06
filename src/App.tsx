@@ -1,20 +1,20 @@
+import { ShowPopup } from '@views/show-popup';
+import { popups } from '@views/popup-templates';
+import { PopupProvider } from '@lib/popups/context/provider';
+import { Popups } from '@lib/popups';
 import { styles } from './app.css';
-import { popups } from './views/popup-templates';
-import { Popups } from './lib/popups';
-import { PopupProvider } from './lib/popups/context';
-import { ShowPopup } from './views/show-popup';
 
 function App() {
   return (
     <main
       className={styles.main}
     >
-      <PopupProvider>
+      <PopupProvider
+        popups={popups}
+      >
         <ShowPopup />
 
-        <Popups
-          popups={popups}
-        />
+        <Popups />
       </PopupProvider>
     </main>
   );

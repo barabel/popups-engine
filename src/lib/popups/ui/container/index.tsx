@@ -1,6 +1,6 @@
 import { useRef, type MouseEventHandler } from 'react';
 import { motion, type Variants } from 'motion/react';
-import { usePopupProvider } from '../../context/provider';
+import { usePopupProvider } from '../../context/hooks';
 import { styles } from './popups-container.css';
 
 const modalVariants: Variants = {

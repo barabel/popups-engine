@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
-import type { TPopups } from '../types';
-import { usePopupProvider, usePopupStateProvider } from '../context/provider';
+import { Suspense, useEffect } from 'react';
+import { usePopupProvider, usePopupsComponentsProvider, usePopupStateProvider } from '../context/hooks';
 import { PopupsContainer } from './container';
 import { AnimatePresence } from 'motion/react';
 
-export const Popups: React.FC<React.PropsWithChildren & TPopups> = ({
-  popups = {},
-}) => {
+export const Popups: React.FC<React.PropsWithChildren> = () => {
   const { popupList } = usePopupStateProvider();
+
+  const { popups } = usePopupsComponentsProvider();
 
   const { closePopup } = usePopupProvider();
 
@@ -47,15 +46,17 @@ export const Popups: React.FC<React.PropsWithChildren & TPopups> = ({
           const LazyPopup = popups[variant];
 
           return (
-            <PopupsContainer
-              key={id}
-            >
-              {LazyPopup && (
-                <LazyPopup
-                  {...popupProps}
-                />
-              )}
-            </PopupsContainer>
+            <Suspense>
+              <PopupsContainer
+                key={id}
+              >
+                {LazyPopup && (
+                  <LazyPopup
+                    {...popupProps}
+                  />
+                )}
+              </PopupsContainer>
+            </Suspense>
           );
         })}
       </AnimatePresence>

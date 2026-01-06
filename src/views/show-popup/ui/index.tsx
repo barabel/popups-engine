@@ -1,4 +1,4 @@
-import { usePopupProvider } from '@lib/popups/context/provider';
+import { usePopupProvider } from '@lib/popups/context/hooks';
 
 export const ShowPopup = () => {
   const { openPopup } = usePopupProvider();
