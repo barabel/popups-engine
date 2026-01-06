@@ -1,8 +1,8 @@
 import { styles } from './app.css';
-import { popups } from './view/popup-templates';
-import { Popups } from './view/popups';
-import { PopupProvider } from './view/popups/context';
-import { ShowPopup } from './view/show-popup';
+import { popups } from './views/popup-templates';
+import { Popups } from './lib/popups';
+import { PopupProvider } from './lib/popups/context';
+import { ShowPopup } from './views/show-popup';
 
 function App() {
   return (

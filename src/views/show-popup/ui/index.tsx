@@ -1,4 +1,4 @@
-import { usePopupProvider } from '../../popups/context/provider';
+import { usePopupProvider } from '@lib/popups/context/provider';
 
 export const ShowPopup = () => {
   const { openPopup } = usePopupProvider();
@@ -6,6 +6,10 @@ export const ShowPopup = () => {
   const handleButtonClick = () => {
     openPopup({
       variant: 'message',
+      popupProps: {
+        title: 'I am popup',
+        description: 'Destroyer of the worlds',
+      },
     });
   };
 

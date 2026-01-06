@@ -1,4 +1,4 @@
-import { ShowPopup } from '../../../show-popup';
+import { ShowPopup } from '@views/show-popup';
 import type { TPopupMessage } from '../types';
 import { styles } from './popup-message.css';
 
