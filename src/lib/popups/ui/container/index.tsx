@@ -31,11 +31,7 @@ export const PopupsContainer: React.FC<React.PropsWithChildren> = ({
       className={styles.parent}
       onClick={closeByOverlayClick}
     >
-      <div
-        className={styles.wrapper}
-      >
-        {children}
-      </div>
+      {children}
     </motion.div>
   );
 };

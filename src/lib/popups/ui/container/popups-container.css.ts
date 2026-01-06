@@ -12,14 +12,4 @@ export const styles = {
     height: '100vh',
     backgroundColor: '#00000080',
   }),
-  wrapper: style({
-    zIndex: 1,
-    position: 'relative',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 'fit-content',
-    height: 'auto',
-    background: 'transparent',
-  }),
 };
