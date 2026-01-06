@@ -1,10 +1,9 @@
-
 import { style } from '@vanilla-extract/css';
 
 export const styles = {
   parent: style({
     padding: '24px 16px',
-    backgroundColor: 'beige'
+    backgroundColor: 'beige',
   }),
   text: style({
     display: 'flex',
@@ -20,4 +19,4 @@ export const styles = {
     fontSize: '14px',
     textAlign: 'center',
   }),
-}
+};

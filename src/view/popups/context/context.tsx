@@ -1,5 +1,5 @@
-import { createContext } from "react";
-import type { TPopupContext } from "../types";
+import { createContext } from 'react';
+import type { TPopupContext } from '../types';
 
 export const popupContext = createContext<Omit<TPopupContext, 'popupList'>>({
   openPopup: () => {},

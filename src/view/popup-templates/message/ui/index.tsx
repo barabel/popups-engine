@@ -1,4 +1,5 @@
-import type { TPopupMessage } from "../types";
+import { ShowPopup } from '../../../show-popup';
+import type { TPopupMessage } from '../types';
 import { styles } from './popup-message.css';
 
 export const PopupMessage: React.FC<TPopupMessage> = ({
@@ -28,6 +29,8 @@ export const PopupMessage: React.FC<TPopupMessage> = ({
           </div>
         )}
       </div>
+
+      <ShowPopup />
     </div>
   );
 };

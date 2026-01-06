@@ -1,13 +1,13 @@
-import { usePopupProvider } from "../../popups/context/provider"
+import { usePopupProvider } from '../../popups/context/provider';
 
 export const ShowPopup = () => {
   const { openPopup } = usePopupProvider();
 
   const handleButtonClick = () => {
     openPopup({
-      variant: 'a',
-    })
-  }
+      variant: 'message',
+    });
+  };
 
   return (
     <div>
@@ -18,5 +18,5 @@ export const ShowPopup = () => {
         Press
       </button>
     </div>
-  )
-}
+  );
+};

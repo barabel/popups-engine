@@ -1,33 +1,27 @@
-import { useEffect, useRef } from 'react';
-import type { TPopupsRef } from '../types';
-import { usePopupStateProvider } from '../context/provider';
+import { useEffect } from 'react';
+import type { TPopups } from '../types';
+import { usePopupProvider, usePopupStateProvider } from '../context/provider';
+import { PopupsContainer } from './container';
+import { AnimatePresence } from 'motion/react';
 
-export const Popups: React.FC<React.PropsWithChildren> = () => {
-  const popupsRef = useRef<TPopupsRef[]>([]);
-
+export const Popups: React.FC<React.PropsWithChildren & TPopups> = ({
+  popups = {},
+}) => {
   const { popupList } = usePopupStateProvider();
+
+  const { closePopup } = usePopupProvider();
 
   // const { enable, lock } = useScrollLock();
 
   useEffect(() => {
-    if (popupList.length > 0) {
-      // lock();
-    }
-
     const closeOnEscape = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
-        const popupListActivePopupId = popupList[popupList.length - 1].id;
-
-        const popupActiveRef = popupsRef.current.find((popup) => popup.id === popupListActivePopupId);
-
-        if (popupActiveRef) {
-          const { closeThisPopup } = popupActiveRef;
-          closeThisPopup();
-        }
+        closePopup();
       }
     };
 
     if (popupList.length > 0) {
+      // lock();
       window.addEventListener('keydown', closeOnEscape);
     }
 
@@ -38,29 +32,33 @@ export const Popups: React.FC<React.PropsWithChildren> = () => {
 
       window.removeEventListener('keydown', closeOnEscape);
     };
-  }, [popupList]);
+  }, [popupList, closePopup]);
 
   return (
-    <div id="popups">
-      {/* {popupList.map((popup, index) => { */}
-      {popupList.map((popup) => {
-        return (
-          <div
-            key={popup.id}
-          >
-            hello popup
-          </div>
-          // <PopupsContainer
-          //   ref={(element) => {
-          //     if (element) {
-          //       popupsRef.current[index] = element;
-          //     }
-          //   }}
-          //   key={popup.id}
-          //   {...popup}
-          // />
-        );
-      })}
+    <div id="popups-engine">
+      <AnimatePresence>
+        {popupList.map((popupList) => {
+          const {
+            id,
+            variant,
+            popupProps,
+          } = popupList;
+
+          const LazyPopup = popups[variant];
+
+          return (
+            <PopupsContainer
+              key={id}
+            >
+              {LazyPopup && (
+                <LazyPopup
+                  {...popupProps}
+                />
+              )}
+            </PopupsContainer>
+          );
+        })}
+      </AnimatePresence>
     </div>
   );
 };

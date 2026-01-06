@@ -2,7 +2,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import type { TPopupComponent, TPopupContext } from '../types';
+import type { TPopupExecute, TPopupContext } from '../types';
 import { popupContext, popupStateContext } from './context';
 
 export const PopupProvider: React.FC<React.PropsWithChildren> = ({
@@ -10,7 +10,7 @@ export const PopupProvider: React.FC<React.PropsWithChildren> = ({
 }) => {
   const [popupList, setPopupList] = useState<TPopupContext['popupList']>([]);
 
-  const openPopup = (data: TPopupComponent): void => {
+  const openPopup = (data: TPopupExecute): void => {
     setPopupList((popupList) => {
       return [...popupList, {
         ...data,

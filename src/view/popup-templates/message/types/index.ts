@@ -1,4 +1,4 @@
 export type TPopupMessage = {
-  title?: string
-  description?: string
+  title?: string;
+  description?: string;
 };
