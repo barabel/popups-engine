@@ -3,6 +3,7 @@ import { usePopupProvider, usePopupsComponentsProvider, usePopupStateProvider } 
 import { PopupsContainer } from './container';
 import { AnimatePresence } from 'motion/react';
 import type { FC } from '~/src/utilities/types';
+import { PopupsLoader } from './loader';
 
 export const Popups: FC = () => {
   const { popupList } = usePopupStateProvider();
@@ -52,9 +53,11 @@ export const Popups: FC = () => {
           const LazyPopup = popups[variant];
 
           return (
-            <Suspense>
-              <PopupsContainer
-                key={id}
+            <PopupsContainer
+              key={id}
+            >
+              <Suspense
+                fallback={<PopupsLoader />}
               >
                 {LazyPopup && (
                   <LazyPopup
@@ -62,8 +65,8 @@ export const Popups: FC = () => {
                     closePopup={isCloseAll ? closeAllPopups : closePopup}
                   />
                 )}
-              </PopupsContainer>
-            </Suspense>
+              </Suspense>
+            </PopupsContainer>
           );
         })}
       </AnimatePresence>

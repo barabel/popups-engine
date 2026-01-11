@@ -5,8 +5,9 @@ import styles from './popups-container.module.scss';
 import type { FC } from '~/src/utilities/types';
 
 const modalVariants: Variants = {
-  visible: { opacity: 1, transition: { when: 'beforeChildren' } },
-  hidden: { opacity: 0, transition: { when: 'afterChildren' } },
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
 export const PopupsContainer: FC = ({
@@ -25,9 +26,9 @@ export const PopupsContainer: FC = ({
   return (
     <motion.div
       variants={modalVariants}
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
+      initial="initial"
+      animate="animate"
+      exit="exit"
       ref={parentRef}
       className={styles.parent}
       onClick={closeByOverlayClick}
