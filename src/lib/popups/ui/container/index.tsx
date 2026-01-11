@@ -1,7 +1,7 @@
 import { useRef, type MouseEventHandler } from 'react';
 import { motion, type Variants } from 'motion/react';
 import { usePopupProvider } from '../../context/hooks';
-import { styles } from './popups-container.css';
+import styles from './popups-container.module.scss';
 
 const modalVariants: Variants = {
   visible: { opacity: 1, transition: { when: 'beforeChildren' } },
