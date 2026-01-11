@@ -7,7 +7,10 @@ import { PopupEngineLoader } from './loader';
 import type { TPERoot } from '../types';
 
 export const PopupEngineRoot: FCClass<TPERoot> = ({
+  className,
   id = 'popups-engine-root',
+  enable,
+  lock,
 }) => {
   const { popupList } = usePopupEngineStateProvider();
 
@@ -15,7 +18,21 @@ export const PopupEngineRoot: FCClass<TPERoot> = ({
 
   const { closePopup, closeAllPopups } = usePopupEngineProvider();
 
-  // const { enable, lock } = useScrollLock();
+  useEffect(() => {
+    if (popupList.length > 0) {
+      lock?.();
+    }
+
+    return () => {
+      if (popupList.length > 0) {
+        enable?.();
+      }
+    };
+  }, [
+    popupList,
+    enable,
+    lock,
+  ]);
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent): void => {
@@ -29,21 +46,23 @@ export const PopupEngineRoot: FCClass<TPERoot> = ({
     };
 
     if (popupList.length > 0) {
-      // lock();
       window.addEventListener('keydown', closeOnEscape);
     }
 
     return () => {
-      if (popupList.length > 0) {
-        // enable();
-      }
-
       window.removeEventListener('keydown', closeOnEscape);
     };
-  }, [popupList, closePopup, closeAllPopups]);
+  }, [
+    popupList,
+    closePopup,
+    closeAllPopups,
+  ]);
 
   return (
-    <div id={id}>
+    <div
+      className={className}
+      id={id}
+    >
       <AnimatePresence>
         {popupList.map((popupExecuteProps) => {
           const {
@@ -60,6 +79,10 @@ export const PopupEngineRoot: FCClass<TPERoot> = ({
           const PopupsLoader = components?.loader ?? PopupEngineLoader;
           const LazyPopup = popups[variant];
 
+          if (!LazyPopup) {
+            return null;
+          }
+
           return (
             <PopupsContainer
               key={popupID}
@@ -69,12 +92,10 @@ export const PopupEngineRoot: FCClass<TPERoot> = ({
               <Suspense
                 fallback={<PopupsLoader className={classNames?.loader} />}
               >
-                {LazyPopup && (
-                  <LazyPopup
-                    {...popupProps}
-                    closePopup={isCloseAll ? closeAllPopups : closePopup}
-                  />
-                )}
+                <LazyPopup
+                  {...popupProps}
+                  closePopup={isCloseAll ? closeAllPopups : closePopup}
+                />
               </Suspense>
             </PopupsContainer>
           );

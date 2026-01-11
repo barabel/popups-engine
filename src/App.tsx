@@ -16,7 +16,14 @@ function App() {
       >
         <ShowPopup countStart={countStart} />
 
-        <PopupEngineRoot />
+        <PopupEngineRoot
+          enable={() => {
+            console.log('enable scroll lock');
+          }}
+          lock={() => {
+            console.log('lock scroll lock');
+          }}
+        />
       </PopupEngineProvider>
     </main>
   );

@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useMemo,
   useState,
 } from 'react';
@@ -12,14 +13,27 @@ export const PopupEngineProvider: FCClass<TPEProvider> = ({
 }) => {
   const [popupList, setPopupList] = useState<TPEItem[]>([]);
 
-  const openPopup = (data: TPEExecute): void => {
-    setPopupList((popupList) => {
-      return [...popupList, {
-        ...data,
-        popupID: Date.now(),
-      }];
-    });
-  };
+  const openPopup = useCallback((data: TPEExecute): void => {
+    const popupKeys = Object.keys(popups);
+
+    const { variant } = data;
+
+    if (variant) {
+      const isPopupVariantExist = popupKeys.some(popupKey => popupKey === variant);
+
+      if (isPopupVariantExist) {
+        setPopupList((popupList) => {
+          return [...popupList, {
+            ...data,
+            popupID: Date.now(),
+          }];
+        });
+      }
+      else {
+        console.error(`there are no "${variant}" popup`);
+      }
+    }
+  }, [popups]);
 
   const closePopup = (): void => {
     setPopupList((popupList) => {
@@ -46,7 +60,7 @@ export const PopupEngineProvider: FCClass<TPEProvider> = ({
       closeFirstPopup,
       closeAllPopups,
     };
-  }, []);
+  }, [openPopup]);
 
   const state = useMemo(() => ({
     popupList,

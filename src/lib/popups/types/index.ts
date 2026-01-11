@@ -66,4 +66,6 @@ export type TPEComponentWrapper<K = object> = FCClass<{
 
 export type TPERoot = {
   id?: string;
+  enable?: () => void;
+  lock?: () => void;
 };
