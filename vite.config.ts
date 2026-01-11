@@ -22,7 +22,7 @@ export default defineConfig({
       formats: ['es'] as LibraryFormats[],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: id => /^(react|react-dom|react\/jsx-runtime|motion)(\/.*)?$/.test(id),
     },
   },
   resolve: {

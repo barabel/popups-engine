@@ -1,6 +1,6 @@
 {
   "name": "@barabel324/popups-engine",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "main": "./dist/popups-engine.js",
   "types": "./dist/popups-engine.d.ts",
@@ -27,9 +27,7 @@
   },
   "peerDependencies": {
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
-  },
-  "dependencies": {
+    "react-dom": "^19.2.3",
     "motion": "^12.24.7"
   },
   "devDependencies": {
@@ -44,6 +42,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "motion": "^12.24.7",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "sass-embedded": "^1.97.2",
