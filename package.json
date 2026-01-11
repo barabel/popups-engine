@@ -1,6 +1,6 @@
 {
   "name": "@barabel324/popups-engine",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "main": "./dist/popups-engine.js",
   "types": "./dist/popups-engine.d.ts",
@@ -8,7 +8,10 @@
     ".": {
       "import": "./dist/popups-engine.js"
     },
-    "./css": "./dist/popups-engine.css"
+    "./css": {
+      "import": "./dist/popups-engine.css",
+      "types": "./dist/css.d.ts"
+    }
   },
   "files": [
     "dist"
