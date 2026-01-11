@@ -7,7 +7,8 @@
   "exports": {
     ".": {
       "import": "./dist/popups-engine.js"
-    }
+    },
+    "./css": "./dist/popups-engine.css"
   },
   "files": [
     "dist"

@@ -1,7 +1,7 @@
 import type { FCClass } from '~/src/utilities/types';
 import styles from './popups-loader.module.scss';
 
-export const PopupEngineLoader: FCClass = ({
+export const PopupsEngineLoader: FCClass = ({
   className,
 }) => {
   return (

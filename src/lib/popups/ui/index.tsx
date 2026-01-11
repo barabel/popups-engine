@@ -1,22 +1,22 @@
 import { Suspense, useEffect } from 'react';
-import { usePopupEngineProvider, usePopupEngineComponentsProvider, usePopupEngineStateProvider } from '../context/hooks';
-import { PopupEngineContainer } from './container';
+import { usePopupsEngineProvider, usePopupsEngineComponentsProvider, usePopupsEngineStateProvider } from '../context/hooks';
+import { PopupsEngineContainer } from './container';
 import { AnimatePresence } from 'motion/react';
 import type { FCClass } from '~/src/utilities/types';
-import { PopupEngineLoader } from './loader';
+import { PopupsEngineLoader } from './loader';
 import type { TPERoot } from '../types';
 
-export const PopupEngineRoot: FCClass<TPERoot> = ({
+export const PopupsEngineRoot: FCClass<TPERoot> = ({
   className,
   id = 'popups-engine-root',
   enableBodyScroll,
   lockBodyScroll,
 }) => {
-  const { popupList } = usePopupEngineStateProvider();
+  const { popupList } = usePopupsEngineStateProvider();
 
-  const { popups } = usePopupEngineComponentsProvider();
+  const { popups } = usePopupsEngineComponentsProvider();
 
-  const { closePopup, closeAllPopups } = usePopupEngineProvider();
+  const { closePopup, closeAllPopups } = usePopupsEngineProvider();
 
   useEffect(() => {
     if (popupList.length > 0) {
@@ -75,8 +75,8 @@ export const PopupEngineRoot: FCClass<TPERoot> = ({
             motionVariants,
           } = popupExecuteProps;
 
-          const PopupsContainer = components?.wrapper ?? PopupEngineContainer;
-          const PopupsLoader = components?.loader ?? PopupEngineLoader;
+          const PopupsContainer = components?.wrapper ?? PopupsEngineContainer;
+          const PopupsLoader = components?.loader ?? PopupsEngineLoader;
           const LazyPopup = popups[variant];
 
           if (!LazyPopup) {

@@ -1,10 +1,10 @@
-import { usePopupEngineProvider } from '@lib/popups/context/hooks';
+import { usePopupsEngineProvider } from '@lib/popups/context/hooks';
 import type { FCClass } from '~/src/utilities/types';
 
 export const ShowPopup: FCClass<{ countStart: number }> = ({
   countStart,
 }) => {
-  const { openPopup } = usePopupEngineProvider();
+  const { openPopup } = usePopupsEngineProvider();
 
   const popupNumber = countStart + 1;
 
