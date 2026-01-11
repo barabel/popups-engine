@@ -1,7 +1,7 @@
 import { ShowPopup } from '@views/show-popup';
 import { popups } from '@views/popup-templates';
-import { PopupEngineProvider } from '@lib/popups/context/provider';
-import { PopupEngineRoot } from '@lib/popups';
+import { PopupsEngineProvider } from '@lib/popups/context/provider';
+import { PopupsEngineRoot } from '@lib/popups';
 import styles from './app.module.scss';
 
 const countStart = 0;
@@ -11,12 +11,12 @@ function App() {
     <main
       className={styles.main}
     >
-      <PopupEngineProvider
+      <PopupsEngineProvider
         popups={popups}
       >
         <ShowPopup countStart={countStart} />
 
-        <PopupEngineRoot
+        <PopupsEngineRoot
           enableBodyScroll={() => {
             console.log('enable scroll lock');
           }}
@@ -24,7 +24,7 @@ function App() {
             console.log('lock scroll lock');
           }}
         />
-      </PopupEngineProvider>
+      </PopupsEngineProvider>
     </main>
   );
 }

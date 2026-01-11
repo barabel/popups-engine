@@ -1,14 +1,14 @@
 import { useContext } from 'react';
-import { popupEngineContext, popupEngineStateContext, popupEngineComponentsContext } from './context';
+import { popupsEngineContext, popupsEngineStateContext, popupsEngineComponentsContext } from './context';
 
-export const usePopupEngineProvider = () => {
-  return useContext(popupEngineContext);
+export const usePopupsEngineProvider = () => {
+  return useContext(popupsEngineContext);
 };
 
-export const usePopupEngineStateProvider = () => {
-  return useContext(popupEngineStateContext);
+export const usePopupsEngineStateProvider = () => {
+  return useContext(popupsEngineStateContext);
 };
 
-export const usePopupEngineComponentsProvider = () => {
-  return useContext(popupEngineComponentsContext);
+export const usePopupsEngineComponentsProvider = () => {
+  return useContext(popupsEngineComponentsContext);
 };

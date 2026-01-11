@@ -4,10 +4,10 @@ import {
   useState,
 } from 'react';
 import type { TPEExecute, TPEProvider, TPEItem } from '../types';
-import { popupEngineContext, popupEngineComponentsContext, popupEngineStateContext } from './context';
+import { popupsEngineContext, popupsEngineComponentsContext, popupsEngineStateContext } from './context';
 import type { FCClass } from '~/src/utilities/types';
 
-export const PopupEngineProvider: FCClass<TPEProvider> = ({
+export const PopupsEngineProvider: FCClass<TPEProvider> = ({
   popups,
   children,
 }) => {
@@ -73,12 +73,12 @@ export const PopupEngineProvider: FCClass<TPEProvider> = ({
   }, [popups]);
 
   return (
-    <popupEngineContext.Provider value={value}>
-      <popupEngineStateContext.Provider value={state}>
-        <popupEngineComponentsContext.Provider value={components}>
+    <popupsEngineContext.Provider value={value}>
+      <popupsEngineStateContext.Provider value={state}>
+        <popupsEngineComponentsContext.Provider value={components}>
           {children}
-        </popupEngineComponentsContext.Provider>
-      </popupEngineStateContext.Provider>
-    </popupEngineContext.Provider>
+        </popupsEngineComponentsContext.Provider>
+      </popupsEngineStateContext.Provider>
+    </popupsEngineContext.Provider>
   );
 };
