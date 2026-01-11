@@ -9,8 +9,8 @@ import type { TPERoot } from '../types';
 export const PopupEngineRoot: FCClass<TPERoot> = ({
   className,
   id = 'popups-engine-root',
-  enable,
-  lock,
+  enableBodyScroll,
+  lockBodyScroll,
 }) => {
   const { popupList } = usePopupEngineStateProvider();
 
@@ -20,18 +20,18 @@ export const PopupEngineRoot: FCClass<TPERoot> = ({
 
   useEffect(() => {
     if (popupList.length > 0) {
-      lock?.();
+      lockBodyScroll?.();
     }
 
     return () => {
       if (popupList.length > 0) {
-        enable?.();
+        enableBodyScroll?.();
       }
     };
   }, [
     popupList,
-    enable,
-    lock,
+    enableBodyScroll,
+    lockBodyScroll,
   ]);
 
   useEffect(() => {

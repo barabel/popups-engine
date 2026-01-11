@@ -17,10 +17,10 @@ function App() {
         <ShowPopup countStart={countStart} />
 
         <PopupEngineRoot
-          enable={() => {
+          enableBodyScroll={() => {
             console.log('enable scroll lock');
           }}
-          lock={() => {
+          lockBodyScroll={() => {
             console.log('lock scroll lock');
           }}
         />
