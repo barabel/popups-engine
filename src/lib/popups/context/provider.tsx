@@ -4,8 +4,9 @@ import {
 } from 'react';
 import type { TPopupExecute, TPopupsProvider, TPopupExecuteItem } from '../types';
 import { popupContext, popupsComponentsContext, popupStateContext } from './context';
+import type { FC } from '~/src/utilities/types';
 
-export const PopupProvider: React.FC<React.PropsWithChildren & TPopupsProvider> = ({
+export const PopupProvider: FC<TPopupsProvider> = ({
   popups,
   children,
 }) => {

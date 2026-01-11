@@ -1,8 +1,9 @@
 import { ShowPopup } from '@views/show-popup';
 import type { TPopupMessage } from '../types';
 import styles from './popup-message.module.scss';
+import type { FC } from '~/src/utilities/types';
 
-export const PopupMessage: React.FC<TPopupMessage> = ({
+export const PopupMessage: FC<TPopupMessage> = ({
   title,
   description,
 }) => {

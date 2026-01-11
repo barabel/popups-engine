@@ -2,8 +2,9 @@ import { Suspense, useEffect } from 'react';
 import { usePopupProvider, usePopupsComponentsProvider, usePopupStateProvider } from '../context/hooks';
 import { PopupsContainer } from './container';
 import { AnimatePresence } from 'motion/react';
+import type { FC } from '~/src/utilities/types';
 
-export const Popups: React.FC<React.PropsWithChildren> = () => {
+export const Popups: FC = () => {
   const { popupList } = usePopupStateProvider();
 
   const { popups } = usePopupsComponentsProvider();

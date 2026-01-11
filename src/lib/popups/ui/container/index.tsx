@@ -2,13 +2,14 @@ import { useRef, type MouseEventHandler } from 'react';
 import { motion, type Variants } from 'motion/react';
 import { usePopupProvider } from '../../context/hooks';
 import styles from './popups-container.module.scss';
+import type { FC } from '~/src/utilities/types';
 
 const modalVariants: Variants = {
   visible: { opacity: 1, transition: { when: 'beforeChildren' } },
   hidden: { opacity: 0, transition: { when: 'afterChildren' } },
 };
 
-export const PopupsContainer: React.FC<React.PropsWithChildren> = ({
+export const PopupsContainer: FC = ({
   children,
 }) => {
   const parentRef = useRef<HTMLDivElement>(null);

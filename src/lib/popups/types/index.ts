@@ -1,3 +1,5 @@
+import type { FC } from '~/src/utilities/types';
+
 export type TPopupExecute = {
   variant: string;
   popupProps?: Record<string, any>;
@@ -15,5 +17,5 @@ export type TPopupContext = {
 };
 
 export type TPopupsProvider = {
-  popups: Record<string, React.FC<any>>;
+  popups: Record<string, FC<any>>;
 };
