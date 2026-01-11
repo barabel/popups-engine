@@ -11,6 +11,7 @@ const modalVariants: Variants = {
 };
 
 export const PopupEngineContainer: TPEWrapper = ({
+  className,
   children,
 }) => {
   const parentRef = useRef<HTMLDivElement>(null);
@@ -30,7 +31,7 @@ export const PopupEngineContainer: TPEWrapper = ({
       animate="animate"
       exit="exit"
       ref={parentRef}
-      className={styles.parent}
+      className={className ?? styles.parent}
       onClick={closeByOverlayClick}
     >
       {children}

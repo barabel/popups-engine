@@ -1,10 +1,24 @@
-import type { FCChildren } from '~/src/utilities/types';
+import type { FCClass } from '~/src/utilities/types';
 
-export type TPEWrapper = FCChildren;
+export type TPEWrapper = FCClass;
+
+type TPEMapComponents = {
+  wrapper: {
+    component: TPEWrapper;
+    className: string;
+  };
+  loader: {
+    component: FCClass;
+    className: string;
+  };
+};
 
 type TPEComponents = {
-  wrapper?: FCChildren;
-  loader?: FCChildren;
+  [K in keyof TPEMapComponents]?: TPEMapComponents[K]['component'];
+};
+
+type TPEClassNames = {
+  [K in keyof TPEMapComponents]?: TPEMapComponents[K]['className'];
 };
 
 export type TPEExecute = {
@@ -12,6 +26,7 @@ export type TPEExecute = {
   popupProps?: Record<string, any>;
   isCloseAll?: boolean;
   components?: TPEComponents;
+  classNames?: TPEClassNames;
 };
 
 export type TPEItem = TPEExecute & {
@@ -34,10 +49,10 @@ export type TPEPopupsContext = {
 };
 
 export type TPEProvider = {
-  popups: Record<string, FCChildren<any>>;
+  popups: Record<string, FCClass<any>>;
 };
 
-export type TPEComponentWrapper<K = object> = FCChildren<{
+export type TPEComponentWrapper<K = object> = FCClass<{
   closePopup: () => void;
 } & K>;
 

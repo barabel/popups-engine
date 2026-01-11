@@ -1,1 +1,1 @@
-export type FCChildren<P = object> = React.FC<P & React.PropsWithChildren>;
+export type FCClass<P = object> = React.FC<P & React.PropsWithChildren & { className?: string }>;

@@ -2,11 +2,11 @@ import { Suspense, useEffect } from 'react';
 import { usePopupEngineProvider, usePopupEngineComponentsProvider, usePopupEngineStateProvider } from '../context/hooks';
 import { PopupEngineContainer } from './container';
 import { AnimatePresence } from 'motion/react';
-import type { FCChildren } from '~/src/utilities/types';
+import type { FCClass } from '~/src/utilities/types';
 import { PopupEngineLoader } from './loader';
 import type { TPERoot } from '../types';
 
-export const PopupEngineRoot: FCChildren<TPERoot> = ({
+export const PopupEngineRoot: FCClass<TPERoot> = ({
   id = 'popups-engine-root',
 }) => {
   const { popupList } = usePopupEngineStateProvider();
@@ -52,6 +52,7 @@ export const PopupEngineRoot: FCChildren<TPERoot> = ({
             popupProps,
             isCloseAll,
             components,
+            classNames,
           } = popupExecuteProps;
 
           const PopupsContainer = components?.wrapper ?? PopupEngineContainer;
@@ -61,9 +62,10 @@ export const PopupEngineRoot: FCChildren<TPERoot> = ({
           return (
             <PopupsContainer
               key={popupID}
+              className={classNames?.wrapper}
             >
               <Suspense
-                fallback={<PopupsLoader />}
+                fallback={<PopupsLoader className={classNames?.loader} />}
               >
                 {LazyPopup && (
                   <LazyPopup

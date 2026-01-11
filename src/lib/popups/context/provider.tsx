@@ -4,9 +4,9 @@ import {
 } from 'react';
 import type { TPEExecute, TPEProvider, TPEItem } from '../types';
 import { popupEngineContext, popupEngineComponentsContext, popupEngineStateContext } from './context';
-import type { FCChildren } from '~/src/utilities/types';
+import type { FCClass } from '~/src/utilities/types';
 
-export const PopupEngineProvider: FCChildren<TPEProvider> = ({
+export const PopupEngineProvider: FCClass<TPEProvider> = ({
   popups,
   children,
 }) => {
