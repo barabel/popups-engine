@@ -1,12 +1,13 @@
 # Popups-engine
 
 Движок для управления попапами в React с поддержкой кастомных компонентов и анимаций через motion.
+
 Версия motion "^12.24.7"
 
 ## Установка
 
 ```bash
-npm install your-popups-engine
+npm i @barabel324/popups-engine
 ```
 
 ## Основные компоненты
