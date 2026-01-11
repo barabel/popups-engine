@@ -10,7 +10,7 @@ export const ShowPopup: FCClass<{ countStart: number }> = ({
 
   const handleButtonClick = () => {
     openPopup({
-      variant: Math.floor(Math.random() * 2) ? 'message' : 'another',
+      variant: 'message',
       popupProps: {
         title: `I am popup #${popupNumber}`,
         description: 'Destroyer of the worlds',
