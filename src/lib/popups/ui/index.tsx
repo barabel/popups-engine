@@ -9,14 +9,18 @@ export const Popups: FC = () => {
 
   const { popups } = usePopupsComponentsProvider();
 
-  const { closePopup } = usePopupProvider();
+  const { closePopup, closeAllPopups } = usePopupProvider();
 
   // const { enable, lock } = useScrollLock();
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
-        closePopup();
+        const currentPopupExecuteProps = popupList.at(-1);
+
+        const close = currentPopupExecuteProps?.isCloseAll ? closeAllPopups : closePopup;
+
+        close();
       }
     };
 
@@ -32,17 +36,18 @@ export const Popups: FC = () => {
 
       window.removeEventListener('keydown', closeOnEscape);
     };
-  }, [popupList, closePopup]);
+  }, [popupList, closePopup, closeAllPopups]);
 
   return (
     <div id="popups-engine">
       <AnimatePresence>
-        {popupList.map((popupList) => {
+        {popupList.map((popupExecuteProps) => {
           const {
             id,
             variant,
             popupProps,
-          } = popupList;
+            isCloseAll,
+          } = popupExecuteProps;
 
           const LazyPopup = popups[variant];
 
@@ -54,6 +59,7 @@ export const Popups: FC = () => {
                 {LazyPopup && (
                   <LazyPopup
                     {...popupProps}
+                    closePopup={isCloseAll ? closeAllPopups : closePopup}
                   />
                 )}
               </PopupsContainer>

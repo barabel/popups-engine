@@ -1,16 +1,25 @@
 import { ShowPopup } from '@views/show-popup';
 import type { TPopupMessage } from '../types';
 import styles from './popup-message.module.scss';
-import type { FC } from '~/src/utilities/types';
+import type { TPopupsEngineFC } from '@lib/popups/types';
 
-export const PopupMessage: FC<TPopupMessage> = ({
+export const PopupMessage: TPopupsEngineFC<TPopupMessage> = ({
   title,
   description,
+  closePopup,
 }) => {
   return (
     <div
       className={styles.parent}
     >
+      <button
+        className={styles.buttonClose}
+        type="button"
+        onClick={closePopup}
+      >
+        close
+      </button>
+
       <div
         className={styles.text}
       >
