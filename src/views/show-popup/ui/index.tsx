@@ -1,7 +1,7 @@
-import { usePopupProvider } from '@lib/popups/context/hooks';
+import { usePopupEngineProvider } from '@lib/popups/context/hooks';
 
 export const ShowPopup = () => {
-  const { openPopup } = usePopupProvider();
+  const { openPopup } = usePopupEngineProvider();
 
   const handleButtonClick = () => {
     openPopup({

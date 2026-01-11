@@ -1,17 +1,17 @@
 import { createContext } from 'react';
-import type { TPopupContext } from '../types';
+import type { TPEContext, TPEPopupsContext, TPEStateContext } from '../types';
 
-export const popupContext = createContext<Omit<TPopupContext, 'popupList' | 'popups'>>({
+export const popupEngineContext = createContext<TPEContext>({
   openPopup: () => {},
   closePopup: () => {},
   closeFirstPopup: () => {},
   closeAllPopups: () => {},
 });
 
-export const popupStateContext = createContext<Pick<TPopupContext, 'popupList'>>({
+export const popupEngineStateContext = createContext<TPEStateContext>({
   popupList: [],
 });
 
-export const popupsComponentsContext = createContext<Pick<TPopupContext, 'popups'>>({
+export const popupEngineComponentsContext = createContext<TPEPopupsContext>({
   popups: {},
 });

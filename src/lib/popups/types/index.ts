@@ -1,28 +1,46 @@
-import type { FC } from '~/src/utilities/types';
+import type { FCChildren } from '~/src/utilities/types';
 
-export type TPopupExecute = {
+export type TPEWrapper = FCChildren;
+
+type TPEComponents = {
+  wrapper?: FCChildren;
+  loader?: FCChildren;
+};
+
+export type TPEExecute = {
   variant: string;
   popupProps?: Record<string, any>;
   isCloseAll?: boolean;
+  components?: TPEComponents;
 };
 
-export type TPopupExecuteItem = TPopupExecute & {
-  id: number;
+export type TPEItem = TPEExecute & {
+  popupID: number;
 };
 
-export type TPopupContext = {
-  popups: TPopupsProvider['popups'];
-  popupList: TPopupExecuteItem[];
-  openPopup: (data: TPopupExecute) => void;
+export type TPEContext = {
+  openPopup: (data: TPEExecute) => void;
   closePopup: () => void;
   closeFirstPopup: () => void;
   closeAllPopups: () => void;
 };
 
-export type TPopupsProvider = {
-  popups: Record<string, FC<any>>;
+export type TPEStateContext = {
+  popupList: TPEItem[];
 };
 
-export type TPopupsEngineFC<K = object> = FC<{
+export type TPEPopupsContext = {
+  popups: TPEProvider['popups'];
+};
+
+export type TPEProvider = {
+  popups: Record<string, FCChildren<any>>;
+};
+
+export type TPEComponentWrapper<K = object> = FCChildren<{
   closePopup: () => void;
 } & K>;
+
+export type TPERoot = {
+  id?: string;
+};

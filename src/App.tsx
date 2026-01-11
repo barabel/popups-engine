@@ -1,7 +1,7 @@
 import { ShowPopup } from '@views/show-popup';
 import { popups } from '@views/popup-templates';
-import { PopupProvider } from '@lib/popups/context/provider';
-import { Popups } from '@lib/popups';
+import { PopupEngineProvider } from '@lib/popups/context/provider';
+import { PopupEngineRoot } from '@lib/popups';
 import styles from './app.module.scss';
 
 function App() {
@@ -9,13 +9,13 @@ function App() {
     <main
       className={styles.main}
     >
-      <PopupProvider
+      <PopupEngineProvider
         popups={popups}
       >
         <ShowPopup />
 
-        <Popups />
-      </PopupProvider>
+        <PopupEngineRoot />
+      </PopupEngineProvider>
     </main>
   );
 }

@@ -2,21 +2,21 @@ import {
   useMemo,
   useState,
 } from 'react';
-import type { TPopupExecute, TPopupsProvider, TPopupExecuteItem } from '../types';
-import { popupContext, popupsComponentsContext, popupStateContext } from './context';
-import type { FC } from '~/src/utilities/types';
+import type { TPEExecute, TPEProvider, TPEItem } from '../types';
+import { popupEngineContext, popupEngineComponentsContext, popupEngineStateContext } from './context';
+import type { FCChildren } from '~/src/utilities/types';
 
-export const PopupProvider: FC<TPopupsProvider> = ({
+export const PopupEngineProvider: FCChildren<TPEProvider> = ({
   popups,
   children,
 }) => {
-  const [popupList, setPopupList] = useState<TPopupExecuteItem[]>([]);
+  const [popupList, setPopupList] = useState<TPEItem[]>([]);
 
-  const openPopup = (data: TPopupExecute): void => {
+  const openPopup = (data: TPEExecute): void => {
     setPopupList((popupList) => {
       return [...popupList, {
         ...data,
-        id: Date.now(),
+        popupID: Date.now(),
       }];
     });
   };
@@ -59,12 +59,12 @@ export const PopupProvider: FC<TPopupsProvider> = ({
   }, [popups]);
 
   return (
-    <popupContext.Provider value={value}>
-      <popupStateContext.Provider value={state}>
-        <popupsComponentsContext.Provider value={components}>
+    <popupEngineContext.Provider value={value}>
+      <popupEngineStateContext.Provider value={state}>
+        <popupEngineComponentsContext.Provider value={components}>
           {children}
-        </popupsComponentsContext.Provider>
-      </popupStateContext.Provider>
-    </popupContext.Provider>
+        </popupEngineComponentsContext.Provider>
+      </popupEngineStateContext.Provider>
+    </popupEngineContext.Provider>
   );
 };

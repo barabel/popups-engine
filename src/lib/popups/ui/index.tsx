@@ -1,16 +1,19 @@
 import { Suspense, useEffect } from 'react';
-import { usePopupProvider, usePopupsComponentsProvider, usePopupStateProvider } from '../context/hooks';
-import { PopupsContainer } from './container';
+import { usePopupEngineProvider, usePopupEngineComponentsProvider, usePopupEngineStateProvider } from '../context/hooks';
+import { PopupEngineContainer } from './container';
 import { AnimatePresence } from 'motion/react';
-import type { FC } from '~/src/utilities/types';
-import { PopupsLoader } from './loader';
+import type { FCChildren } from '~/src/utilities/types';
+import { PopupEngineLoader } from './loader';
+import type { TPERoot } from '../types';
 
-export const Popups: FC = () => {
-  const { popupList } = usePopupStateProvider();
+export const PopupEngineRoot: FCChildren<TPERoot> = ({
+  id = 'popups-engine-root',
+}) => {
+  const { popupList } = usePopupEngineStateProvider();
 
-  const { popups } = usePopupsComponentsProvider();
+  const { popups } = usePopupEngineComponentsProvider();
 
-  const { closePopup, closeAllPopups } = usePopupProvider();
+  const { closePopup, closeAllPopups } = usePopupEngineProvider();
 
   // const { enable, lock } = useScrollLock();
 
@@ -40,21 +43,24 @@ export const Popups: FC = () => {
   }, [popupList, closePopup, closeAllPopups]);
 
   return (
-    <div id="popups-engine">
+    <div id={id}>
       <AnimatePresence>
         {popupList.map((popupExecuteProps) => {
           const {
-            id,
+            popupID,
             variant,
             popupProps,
             isCloseAll,
+            components,
           } = popupExecuteProps;
 
+          const PopupsContainer = components?.wrapper ?? PopupEngineContainer;
+          const PopupsLoader = components?.loader ?? PopupEngineLoader;
           const LazyPopup = popups[variant];
 
           return (
             <PopupsContainer
-              key={id}
+              key={popupID}
             >
               <Suspense
                 fallback={<PopupsLoader />}

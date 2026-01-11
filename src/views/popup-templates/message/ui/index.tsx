@@ -1,9 +1,9 @@
 import { ShowPopup } from '@views/show-popup';
 import type { TPopupMessage } from '../types';
 import styles from './popup-message.module.scss';
-import type { TPopupsEngineFC } from '@lib/popups/types';
+import type { TPEComponentWrapper } from '@lib/popups/types';
 
-export const PopupMessage: TPopupsEngineFC<TPopupMessage> = ({
+export const PopupMessage: TPEComponentWrapper<TPopupMessage> = ({
   title,
   description,
   closePopup,
