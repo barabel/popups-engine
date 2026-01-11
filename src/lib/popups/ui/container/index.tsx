@@ -12,6 +12,7 @@ const modalVariants: Variants = {
 
 export const PopupEngineContainer: TPEWrapper = ({
   className,
+  motionVariants = modalVariants,
   children,
 }) => {
   const parentRef = useRef<HTMLDivElement>(null);
@@ -26,7 +27,7 @@ export const PopupEngineContainer: TPEWrapper = ({
 
   return (
     <motion.div
-      variants={modalVariants}
+      variants={motionVariants}
       initial="initial"
       animate="animate"
       exit="exit"

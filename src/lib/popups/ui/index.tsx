@@ -53,6 +53,7 @@ export const PopupEngineRoot: FCClass<TPERoot> = ({
             isCloseAll,
             components,
             classNames,
+            motionVariants,
           } = popupExecuteProps;
 
           const PopupsContainer = components?.wrapper ?? PopupEngineContainer;
@@ -63,6 +64,7 @@ export const PopupEngineRoot: FCClass<TPERoot> = ({
             <PopupsContainer
               key={popupID}
               className={classNames?.wrapper}
+              motionVariants={motionVariants}
             >
               <Suspense
                 fallback={<PopupsLoader className={classNames?.loader} />}

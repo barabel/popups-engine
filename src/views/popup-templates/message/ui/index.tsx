@@ -6,6 +6,7 @@ import type { TPEComponentWrapper } from '@lib/popups/types';
 export const PopupMessage: TPEComponentWrapper<TPopupMessage> = ({
   title,
   description,
+  countStart,
   closePopup,
 }) => {
   return (
@@ -40,7 +41,7 @@ export const PopupMessage: TPEComponentWrapper<TPopupMessage> = ({
         )}
       </div>
 
-      <ShowPopup />
+      <ShowPopup countStart={countStart ?? 0} />
     </div>
   );
 };

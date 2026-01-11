@@ -1,6 +1,13 @@
+import type { Variant } from 'motion/react';
 import type { FCClass } from '~/src/utilities/types';
 
-export type TPEWrapper = FCClass;
+type TPEMotionVariants = {
+  initial: Variant;
+  animate: Variant;
+  exit: Variant;
+};
+
+export type TPEWrapper = FCClass<{ motionVariants?: TPEMotionVariants }>;
 
 type TPEMapComponents = {
   wrapper: {
@@ -27,6 +34,7 @@ export type TPEExecute = {
   isCloseAll?: boolean;
   components?: TPEComponents;
   classNames?: TPEClassNames;
+  motionVariants?: TPEMotionVariants;
 };
 
 export type TPEItem = TPEExecute & {

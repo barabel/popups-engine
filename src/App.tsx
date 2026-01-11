@@ -4,6 +4,8 @@ import { PopupEngineProvider } from '@lib/popups/context/provider';
 import { PopupEngineRoot } from '@lib/popups';
 import styles from './app.module.scss';
 
+const countStart = 0;
+
 function App() {
   return (
     <main
@@ -12,7 +14,7 @@ function App() {
       <PopupEngineProvider
         popups={popups}
       >
-        <ShowPopup />
+        <ShowPopup countStart={countStart} />
 
         <PopupEngineRoot />
       </PopupEngineProvider>
