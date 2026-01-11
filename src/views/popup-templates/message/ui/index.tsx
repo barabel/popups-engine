@@ -1,15 +1,26 @@
 import { ShowPopup } from '@views/show-popup';
 import type { TPopupMessage } from '../types';
-import { styles } from './popup-message.css';
+import styles from './popup-message.module.scss';
+import type { TPEComponentWrapper } from '@lib/popups/types';
 
-export const PopupMessage: React.FC<TPopupMessage> = ({
+export const PopupMessage: TPEComponentWrapper<TPopupMessage> = ({
   title,
   description,
+  countStart,
+  closePopup,
 }) => {
   return (
     <div
       className={styles.parent}
     >
+      <button
+        className={styles.buttonClose}
+        type="button"
+        onClick={closePopup}
+      >
+        close
+      </button>
+
       <div
         className={styles.text}
       >
@@ -30,7 +41,7 @@ export const PopupMessage: React.FC<TPopupMessage> = ({
         )}
       </div>
 
-      <ShowPopup />
+      <ShowPopup countStart={countStart ?? 0} />
     </div>
   );
 };

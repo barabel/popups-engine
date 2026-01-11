@@ -1,62 +1,103 @@
 import { Suspense, useEffect } from 'react';
-import { usePopupProvider, usePopupsComponentsProvider, usePopupStateProvider } from '../context/hooks';
-import { PopupsContainer } from './container';
+import { usePopupEngineProvider, usePopupEngineComponentsProvider, usePopupEngineStateProvider } from '../context/hooks';
+import { PopupEngineContainer } from './container';
 import { AnimatePresence } from 'motion/react';
+import type { FCClass } from '~/src/utilities/types';
+import { PopupEngineLoader } from './loader';
+import type { TPERoot } from '../types';
 
-export const Popups: React.FC<React.PropsWithChildren> = () => {
-  const { popupList } = usePopupStateProvider();
+export const PopupEngineRoot: FCClass<TPERoot> = ({
+  className,
+  id = 'popups-engine-root',
+  enableBodyScroll,
+  lockBodyScroll,
+}) => {
+  const { popupList } = usePopupEngineStateProvider();
 
-  const { popups } = usePopupsComponentsProvider();
+  const { popups } = usePopupEngineComponentsProvider();
 
-  const { closePopup } = usePopupProvider();
-
-  // const { enable, lock } = useScrollLock();
+  const { closePopup, closeAllPopups } = usePopupEngineProvider();
 
   useEffect(() => {
-    const closeOnEscape = (event: KeyboardEvent): void => {
-      if (event.key === 'Escape') {
-        closePopup();
-      }
-    };
-
     if (popupList.length > 0) {
-      // lock();
-      window.addEventListener('keydown', closeOnEscape);
+      lockBodyScroll?.();
     }
 
     return () => {
       if (popupList.length > 0) {
-        // enable();
+        enableBodyScroll?.();
       }
+    };
+  }, [
+    popupList,
+    enableBodyScroll,
+    lockBodyScroll,
+  ]);
 
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        const currentPopupExecuteProps = popupList.at(-1);
+
+        const close = currentPopupExecuteProps?.isCloseAll ? closeAllPopups : closePopup;
+
+        close();
+      }
+    };
+
+    if (popupList.length > 0) {
+      window.addEventListener('keydown', closeOnEscape);
+    }
+
+    return () => {
       window.removeEventListener('keydown', closeOnEscape);
     };
-  }, [popupList, closePopup]);
+  }, [
+    popupList,
+    closePopup,
+    closeAllPopups,
+  ]);
 
   return (
-    <div id="popups-engine">
+    <div
+      className={className}
+      id={id}
+    >
       <AnimatePresence>
-        {popupList.map((popupList) => {
+        {popupList.map((popupExecuteProps) => {
           const {
-            id,
+            popupID,
             variant,
             popupProps,
-          } = popupList;
+            isCloseAll,
+            components,
+            classNames,
+            motionVariants,
+          } = popupExecuteProps;
 
+          const PopupsContainer = components?.wrapper ?? PopupEngineContainer;
+          const PopupsLoader = components?.loader ?? PopupEngineLoader;
           const LazyPopup = popups[variant];
 
+          if (!LazyPopup) {
+            return null;
+          }
+
           return (
-            <Suspense>
-              <PopupsContainer
-                key={id}
+            <PopupsContainer
+              key={popupID}
+              className={classNames?.wrapper}
+              motionVariants={motionVariants}
+            >
+              <Suspense
+                fallback={<PopupsLoader className={classNames?.loader} />}
               >
-                {LazyPopup && (
-                  <LazyPopup
-                    {...popupProps}
-                  />
-                )}
-              </PopupsContainer>
-            </Suspense>
+                <LazyPopup
+                  {...popupProps}
+                  closePopup={isCloseAll ? closeAllPopups : closePopup}
+                />
+              </Suspense>
+            </PopupsContainer>
           );
         })}
       </AnimatePresence>

@@ -1,19 +1,23 @@
 import { useRef, type MouseEventHandler } from 'react';
 import { motion, type Variants } from 'motion/react';
-import { usePopupProvider } from '../../context/hooks';
-import { styles } from './popups-container.css';
+import { usePopupEngineProvider } from '../../context/hooks';
+import styles from './popups-container.module.scss';
+import type { TPEWrapper } from '@lib/popups/types';
 
 const modalVariants: Variants = {
-  visible: { opacity: 1, transition: { when: 'beforeChildren' } },
-  hidden: { opacity: 0, transition: { when: 'afterChildren' } },
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
-export const PopupsContainer: React.FC<React.PropsWithChildren> = ({
+export const PopupEngineContainer: TPEWrapper = ({
+  className,
+  motionVariants = modalVariants,
   children,
 }) => {
   const parentRef = useRef<HTMLDivElement>(null);
 
-  const { closePopup } = usePopupProvider();
+  const { closePopup } = usePopupEngineProvider();
 
   const closeByOverlayClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (event.target === parentRef.current) {
@@ -23,12 +27,12 @@ export const PopupsContainer: React.FC<React.PropsWithChildren> = ({
 
   return (
     <motion.div
-      variants={modalVariants}
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
+      variants={motionVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
       ref={parentRef}
-      className={styles.parent}
+      className={className ?? styles.parent}
       onClick={closeByOverlayClick}
     >
       {children}
