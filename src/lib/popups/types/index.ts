@@ -111,6 +111,12 @@ export type TPEComponentWrapper<K = object> = FCClass<{
 export type TPERoot = {
   /** аттрибут id рута */
   id?: string;
+  /** кастомные компоненты либы */
+  components?: TPEComponents;
+  /** кастомные классы для компонентов либы */
+  classNames?: TPEClassNames;
+  /** Варианты анимации обертки для motion */
+  motionVariants?: TPEMotionVariants;
   /** Каллбак для вызова разрешающего метода скролл лока */
   enableBodyScroll?: () => void;
   /** Каллбак для вызова запрещающего метода скролл лока */

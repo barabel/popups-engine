@@ -1,8 +1,8 @@
 # Popups-engine
 
-Движок для управления попапами в React с поддержкой кастомных компонентов и анимаций через motion.
+Движок для управления попапами в React с поддержкой кастомных компонентов и анимаций через `motion`.
 
-Версия motion "^12.24.7"
+Версия `motion`: **^12.24.7**
 
 ## Установка
 
@@ -17,76 +17,78 @@ npm i @barabel324/popups-engine
 Провайдер для регистрации и управления попапами.
 
 ```tsx
-<PopupsEngineProvider
-  popups={popups}
->
+<PopupsEngineProvider popups={popups}>
   {children}
 
   <PopupsEngineRoot
     id="popups-root"
-    lockBodyScroll={() => document.body.style.overflow = 'hidden'}
-    enableBodyScroll={() => document.body.style.overflow = ''}
+    lockBodyScroll={() => (document.body.style.overflow = 'hidden')}
+    enableBodyScroll={() => (document.body.style.overflow = '')}
   />
 </PopupsEngineProvider>
 ```
 
 ### PopupsEngineRoot
 
-Компонент, который рендерит все попапы и обертки. Обычно располагается один раз в корне приложения.
+Компонент, который рендерит все попапы и обёртки. Обычно используется один раз в корне приложения.
 
 ```tsx
 <PopupsEngineRoot
   id="popups-root"
-  lockBodyScroll={() => document.body.style.overflow = 'hidden'}
-  enableBodyScroll={() => document.body.style.overflow = ''}
+  lockBodyScroll={() => (document.body.style.overflow = 'hidden')}
+  enableBodyScroll={() => (document.body.style.overflow = '')}
 />
 ```
 
-| Проп               | Тип          | Описание                                     |
-| ------------------ | ------------ | -------------------------------------------- |
-| `id`               | `string`     | Атрибут `id` для корневого элемента попапов. |
-| `lockBodyScroll`   | `() => void` | Функция блокировки скролла страницы.         |
-| `enableBodyScroll` | `() => void` | Функция разблокировки скролла страницы.      |
+#### Пропсы
 
-`PopupsEngineProvider` должен оборачивать приложение, а `PopupsEngineRoot` должен быть отрендерен внутри него (обычно один раз).
+| Проп               | Тип                 | Описание                                                           |
+| ------------------ | ------------------- | ------------------------------------------------------------------ |
+| `id`               | `string`            | `id` атрибут для корневого элемента попапов                        |
+| `lockBodyScroll`   | `() => void`        | Функция блокировки скролла страницы                                |
+| `enableBodyScroll` | `() => void`        | Функция разблокировки скролла страницы                             |
+| `components`       | `TPEComponents`     | Кастомные компоненты. `openPopup` имеет приоритет над этим пропсом |
+| `classNames`       | `TPEClassNames`     | Кастомные классы. `openPopup` имеет приоритет над этим пропсом     |
+| `motionVariants`   | `TPEMotionVariants` | Анимации для `motion`-обёртки попапа. `openPopup` имеет приоритет  |
 
-### Хук usePopupsEngineProvider
+`PopupsEngineProvider` должен оборачивать приложение, а `PopupsEngineRoot` должен быть отрендерен внутри него.
+
+## Хук usePopupsEngineProvider
 
 Позволяет управлять попапами внутри компонентов.
 
 ```ts
-const { openPopup, closePopup, closeFirstPopup, closeAllPopups } = usePopupsEngineProvider();
+const {
+  openPopup,
+  closePopup,
+  closeFirstPopup,
+  closeAllPopups,
+} = usePopupsEngineProvider();
 
-// открыть попап
 openPopup({ variant: 'MyPopup', popupProps: { title: 'Hello' } });
-
-// закрыть последний попап
 closePopup();
-
-// закрыть первый попап
 closeFirstPopup();
-
-// закрыть все попапы
 closeAllPopups();
 ```
 
-#### Пропсы openPopup
+### Пропсы openPopup
 
-| Проп             | Тип                   | Описание                                                  |
-| ---------------- | --------------------- | --------------------------------------------------------- |
-| `variant`        | `string`              | Ключ попапа из провайдера.                                |
-| `popupProps`     | `Record<string, any>` | Пропсы, которые передаются в попап.                       |
-| `isCloseAll`     | `boolean`             | Закрывать ли все попапы при вызове `close` внутри попапа. |
-| `components`     | `TPEComponents`       | Кастомные компоненты для библиотеки.                      |
-| `classNames`     | `TPEClassNames`       | Кастомные классы для компонентов библиотеки.              |
-| `motionVariants` | `TPEMotionVariants`   | Анимации для `motion` обертки попапа.                     |
+| Проп             | Тип                   | Описание                                                               |
+| ---------------- | --------------------- | ---------------------------------------------------------------------- |
+| `variant`        | `string`              | Ключ попапа, зарегистрированного в провайдере                          |
+| `popupProps`     | `Record<string, any>` | Пропсы, передаваемые в компонент попапа                                |
+| `isCloseAll`     | `boolean`             | Закрывать ли все попапы при вызове `close` внутри попапа               |
+| `components`     | `TPEComponents`       | Кастомные компоненты. Приоритет над `PopupsEngineRoot`                 |
+| `classNames`     | `TPEClassNames`       | Кастомные классы. Приоритет над `PopupsEngineRoot`                     |
+| `motionVariants` | `TPEMotionVariants`   | Анимации для `motion`-обёртки попапа. Приоритет над `PopupsEngineRoot` |
 
+## Кастомизация
 
-## Кастомизация компонентов
+Кастомизация возможна глобально через `PopupsEngineRoot` или локально через `openPopup`.
+
+Пропсы, переданные в `openPopup`, имеют приоритет над пропсами `PopupsEngineRoot`.
 
 ### Компоненты
-
-Можно передавать кастомные компоненты для обертки и лоудера:
 
 ```tsx
 const components = {
@@ -97,8 +99,6 @@ const components = {
 
 ### Классы
 
-Можно передавать кастомные классы для обертки и лоудера:
-
 ```tsx
 const classNames = {
   wrapper: 'my-wrapper-class',
@@ -106,10 +106,7 @@ const classNames = {
 };
 ```
 
-
-## Анимации через motion (motion/react, framer-motion)
-
-В каждый попап можно кинуть объект с анимацией motion
+## Анимации (motion / framer-motion)
 
 ```tsx
 const motionVariants = {
@@ -117,16 +114,13 @@ const motionVariants = {
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: 20 },
 };
-
-openPopup({ variant: 'MyPopup', motionVariants });
 ```
 
 ## Дженерики
 
-TPEComponentWrapper — дженерик для типизации попапов. Библиотека автоматически передает в попап служебные пропсы (например `closePopup`), которые можно использовать внутри компонента.
+`TPEComponentWrapper` — дженерик для типизации попапов. Библиотека автоматически передаёт в компонент служебные пропсы (например, `closePopup`).
 
-
-## Минимальный рабочий пример
+## Минимальный пример
 
 ```tsx
 // '@/popup-templates/message'
@@ -134,66 +128,49 @@ export const PopupMessage: TPEComponentWrapper<TPopupMessage> = ({
   title,
   description,
   closePopup,
-}) => {
-  return (
-    <div>
-      <div>
-        {title}
-      </div>
-
-      <div>
-        {description}
-      </div>
-
-      <button
-        type="button"
-        onClick={closePopup}
-      >
-        close
-      </button>
-    </div>
-  );
-};
+}) => (
+  <div>
+    <div>{title}</div>
+    <div>{description}</div>
+    <button type="button" onClick={closePopup}>
+      close
+    </button>
+  </div>
+);
 
 // '@/popup-templates'
 const popups = {
-  message: lazy(
-    () => import('@views/popup-templates/message'),
-  ),
+  message: lazy(() => import('@views/popup-templates/message')),
 };
 
 // '@/show-popup'
 export const ShowPopup = () => {
   const { openPopup } = usePopupsEngineProvider();
 
-  const handleButtonClick = () => {
-    openPopup({
-      variant: 'message',
-      popupProps: {
-        title: `I am popup`,
-        description: 'Destroyer of the worlds',
-      },
-    });
-  };
-
   return (
-    <div>
-      <button
-        type="button"
-        onClick={handleButtonClick}
-      >
-        Press
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={() =>
+        openPopup({
+          variant: 'message',
+          popupProps: {
+            title: 'I am popup',
+            description: 'Destroyer of the worlds',
+          },
+        })
+      }
+    >
+      Press
+    </button>
   );
 };
 
 // 'app.tsx'
-<PopupsEngineProvider
-  popups={popups}
->
-  <ShowPopup />
+import { PopupsEngineProvider, PopupsEngineRoot } from '@barabel324/popups-engine';
+import '@barabel324/popups-engine/css';
 
+<PopupsEngineProvider popups={popups}>
+  <ShowPopup />
   <PopupsEngineRoot />
 </PopupsEngineProvider>
 ```
