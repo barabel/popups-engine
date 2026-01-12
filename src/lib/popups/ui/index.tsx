@@ -9,6 +9,9 @@ import type { TPERoot } from '../types';
 export const PopupsEngineRoot: FCClass<TPERoot> = ({
   className,
   id = 'popups-engine-root',
+  components: rootComponents,
+  classNames: rootClassNames,
+  motionVariants: rootMotionVariants,
   enableBodyScroll,
   lockBodyScroll,
 }) => {
@@ -75,8 +78,8 @@ export const PopupsEngineRoot: FCClass<TPERoot> = ({
             motionVariants,
           } = popupExecuteProps;
 
-          const PopupsContainer = components?.wrapper ?? PopupsEngineContainer;
-          const PopupsLoader = components?.loader ?? PopupsEngineLoader;
+          const PopupsContainer = components?.wrapper || rootComponents?.wrapper || PopupsEngineContainer;
+          const PopupsLoader = components?.loader || rootComponents?.loader || PopupsEngineLoader;
           const LazyPopup = popups[variant];
 
           if (!LazyPopup) {
@@ -86,11 +89,11 @@ export const PopupsEngineRoot: FCClass<TPERoot> = ({
           return (
             <PopupsContainer
               key={popupID}
-              className={classNames?.wrapper}
-              motionVariants={motionVariants}
+              className={classNames?.wrapper || rootClassNames?.wrapper}
+              motionVariants={motionVariants || rootMotionVariants}
             >
               <Suspense
-                fallback={<PopupsLoader className={classNames?.loader} />}
+                fallback={<PopupsLoader className={classNames?.loader || rootClassNames?.loader} />}
               >
                 <LazyPopup
                   {...popupProps}
