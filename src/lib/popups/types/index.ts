@@ -21,6 +21,8 @@ export type TPEWrapper = FCClass<{
    * Варианты анимации обертки для motion
    */
   motionVariants?: TPEMotionVariants;
+  /** функция закрытия текущего попапа */
+  closePopup: () => void;
 }>;
 
 type TPEMapComponents = {

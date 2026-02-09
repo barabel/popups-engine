@@ -1,6 +1,6 @@
 {
   "name": "@barabel324/popups-engine",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "main": "./dist/popups-engine.js",
   "types": "./dist/popups-engine.d.ts",
