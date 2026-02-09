@@ -1,6 +1,5 @@
 import { useRef, type MouseEventHandler } from 'react';
 import { motion, type Variants } from 'motion/react';
-import { usePopupsEngineProvider } from '../../context/hooks';
 import styles from './popups-container.module.scss';
 import type { TPEWrapper } from '@lib/popups/types';
 
@@ -13,11 +12,10 @@ const modalVariants: Variants = {
 export const PopupsEngineContainer: TPEWrapper = ({
   className,
   motionVariants = modalVariants,
+  closePopup,
   children,
 }) => {
   const parentRef = useRef<HTMLDivElement>(null);
-
-  const { closePopup } = usePopupsEngineProvider();
 
   const closeByOverlayClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (event.target === parentRef.current) {

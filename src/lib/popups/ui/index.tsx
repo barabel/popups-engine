@@ -91,6 +91,7 @@ export const PopupsEngineRoot: FCClass<TPERoot> = ({
               key={popupID}
               className={classNames?.wrapper || rootClassNames?.wrapper}
               motionVariants={motionVariants || rootMotionVariants}
+              closePopup={isCloseAll ? closeAllPopups : closePopup}
             >
               <Suspense
                 fallback={<PopupsLoader className={classNames?.loader || rootClassNames?.loader} />}
